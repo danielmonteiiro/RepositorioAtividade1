@@ -136,8 +136,7 @@ public class ListaVendas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     private void listarVendas() {
         try {
             ProdutosDAO produtosdao = new ProdutosDAO();
@@ -158,9 +157,8 @@ public class ListaVendas extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar vendas: " + e.getMessage());
         }
+
     }
-
-
 }
 
 
