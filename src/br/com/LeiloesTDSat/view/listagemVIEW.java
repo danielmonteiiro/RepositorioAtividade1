@@ -4,6 +4,7 @@ package br.com.LeiloesTDSat.view;
 import br.com.LeiloesTDSat.models.ProdutosDTO;
 import br.com.LeiloesTDSat.dao.ProdutosDAO;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,7 +48,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         btnVendas = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         listaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,6 +142,26 @@ public class listagemVIEW extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+public void preencherTabela(List<ProdutosDTO> produtos) {
+    String colunas[] = {"ID", "Nome", "Valor", "Status"};
+    String dados[][] = new String[produtos.size()][colunas.length];
+    
+    int i = 0;
+    
+    for (ProdutosDTO p : produtos) {
+        dados[i] = new String[] {
+            String.valueOf(p.getId()),
+            p.getNome(),
+            String.valueOf(p.getValor()),
+            p.getStatus()
+        };
+        i++;
+    }
+    
+    DefaultTableModel tabelaProdutos = new DefaultTableModel(dados, colunas);
+    listaProdutos.setModel(tabelaProdutos);
+}
+    
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
         
@@ -214,7 +235,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
             model.setNumRows(0);
             
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
+            ArrayList<ProdutosDTO> listagem = produtosdao. listarProdutos();
             
             for(int i = 0; i < listagem.size(); i++){
                 model.addRow(new Object[]{
