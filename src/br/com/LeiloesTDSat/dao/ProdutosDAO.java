@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutosDAO {
 
@@ -68,6 +69,79 @@ public class ProdutosDAO {
         }
 
         return produtos;
+    }
+    
+    public void venderProduto(int id) {
+        Connection conn = new conectaDAO().connectDB();
+        PreparedStatement pstm = null;
+
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id); 
+            int rowsUpdated = pstm.executeUpdate(); 
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado com esse ID.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao vender o produto: " + e.getMessage());
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
+
+    public List<ProdutosDTO> listarProdutosVendidos() {
+        List<ProdutosDTO> produtosVendidos = new ArrayList<>();
+        Connection conn = new conectaDAO().connectDB();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getDouble("valor"));
+                produto.setStatus(rs.getString("status"));
+
+                produtosVendidos.add(produto);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produtos vendidos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+        return produtosVendidos;
     }
 
 }

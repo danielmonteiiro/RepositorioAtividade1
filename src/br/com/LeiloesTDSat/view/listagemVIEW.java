@@ -142,32 +142,14 @@ public class listagemVIEW extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-public void preencherTabela(List<ProdutosDTO> produtos) {
-    String colunas[] = {"ID", "Nome", "Valor", "Status"};
-    String dados[][] = new String[produtos.size()][colunas.length];
-    
-    int i = 0;
-    
-    for (ProdutosDTO p : produtos) {
-        dados[i] = new String[] {
-            String.valueOf(p.getId()),
-            p.getNome(),
-            String.valueOf(p.getValor()),
-            p.getStatus()
-        };
-        i++;
-    }
-    
-    DefaultTableModel tabelaProdutos = new DefaultTableModel(dados, colunas);
-    listaProdutos.setModel(tabelaProdutos);
-}
-    
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
+        int idProduto = Integer.parseInt(id);
         
+       
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        produtosdao.venderProduto (idProduto);
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
