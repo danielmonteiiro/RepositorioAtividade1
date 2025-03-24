@@ -1,5 +1,10 @@
+package br.com.LeiloesTDSat.view;
 
+
+import br.com.LeiloesTDSat.models.ProdutosDTO;
+import br.com.LeiloesTDSat.dao.ProdutosDAO;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -18,6 +23,7 @@ public class listagemVIEW extends javax.swing.JFrame {
      */
     public listagemVIEW() {
         initComponents();
+        setLocationRelativeTo(null);
         listarProdutos();
     }
 

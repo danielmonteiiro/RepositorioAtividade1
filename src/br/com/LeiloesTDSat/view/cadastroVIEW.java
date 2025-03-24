@@ -1,3 +1,10 @@
+package br.com.LeiloesTDSat.view;
+
+
+import br.com.LeiloesTDSat.models.ProdutosDTO;
+import br.com.LeiloesTDSat.dao.ProdutosDAO;
+import br.com.LeiloesTDSat.view.listagemVIEW;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +21,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
      */
     public cadastroVIEW() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
